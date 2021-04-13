@@ -1,0 +1,116 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <style>
+        .record-form label {
+            padding: 7px;
+            color: #060007;
+            font-size: medium;
+        }
+
+        .shadow {
+            background-color: #FBFFFE !important;
+            color: #060007;
+            margin: 0.5rem 0 1rem;
+        }
+
+        td {
+            padding-right: 10px;
+        }
+    </style>
+    <div class="container">
+        <div class="shadow p-3 mb-3 bg-dark rounded">
+            <table style="width: 100%;">
+                <td><h1 style="color: #060007; font-size: 25px;"> Record List </h1></td>
+                <td align="right">
+                    <a class="btn btn-secondary"  href="/create_catalog" role="button">Create Catalog</a>
+                    <a class="btn btn-secondary" href="/create_record" role="button">Create Record</a>
+                    <a class="btn btn-secondary" href="/create_provenance" role="button">Create Provenance</a>
+                    <a class="btn btn-secondary" href="/create_manufacturer" role="button">Create Manufacturer</a>
+                    <a class="btn btn-secondary" href="/manufacturer" role="button">Manufacturer List</a>
+                </td>
+            </table>
+        </div>
+        {% if myFilter %}
+        <div class="shadow p-3 mb-3 bg-dark rounded">
+            <form class="record-form" method="get">
+                {% csrf_token %}
+                <table align="center">
+                    <tr>
+                        <td>Catalog</td> <td> {{ myFilter.form.my_catalog }}</td>
+                        <td>Manufacturer</td> <td> {{ myFilter.form.manufacturer }}</td>
+                        <td>Condition Rating</td> <td> {{ myFilter.form.condition_rating }}</td>
+                        <td rowspan="0"> <button class="btn btn-secondary" type="submit">Search</button> </td>
+                    </tr>
+                    <tr>
+                        <td>Name</td> <td> {{ myFilter.form.name }} </td>
+                        <td>Description</td> <td> {{ myFilter.form.description }}</td>
+                        <td>Condition Description</td> <td> {{ myFilter.form.condition_description }}</td>
+                    </tr>
+                </table>                
+            </form>
+        </div>
+    {% endif %}
+        {% for record in records %}
+                <div class="shadow p-3 mb-3 bg-dark rounded">
+                <h3 class="text" style="font-weight:bold;font-size:25px;"> {{ record.name }}</h3>
+                <p class="text"><small> <em> Updated: </em> {{ record.updated_at }} | <em>
+                    Created: </em> {{ record.created_at }} </small></p>
+                <hr>
+                <table style="width:100%">
+                    <colgroup>
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 35%;">
+                        <col span="1" style="width: 50%;">
+                    </colgroup>
+                    <tr>
+                        <td style="text-align: left;"><strong>Catalog: </strong></td>
+                        <td style="text-align: left;"> {{ record.my_catalog.name }}</td>
+                        
+                        <td align="right" rowspan="0"> 
+                            {% if record.record_picture %} 
+                            <img src="{{ record.record_picture.url }}" width="180">
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Acquisition year: </strong></td>
+                        <td style="text-align: left;">  {{ record.acquisition_date }} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Creation year: </strong></td>
+                        <td style="text-align: left;">  {{ record.creation_date }} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Manufacturer: </strong></td>
+                        {% if record.manufacturer.name %}
+                        <td style="text-align: left;">  {{ record.manufacturer.name }} </td>
+                        {% else %} 
+                            <td> Unknown </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Condition Rating: </strong></td>
+                        <td style="text-align: left;">  {{ record.condition_rating }} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Condition Summary: </strong></td>
+                        {% if record.manufacturer.name %}
+                        <td style="text-align: left;">  {{ record.condition_description }} </td>
+                        {% else %} 
+                            <td> No description provided </td>
+                        {% endif %}
+                    </tr>
+                    </table>
+                    <hr>
+                    <a class="btn btn-secondary" href="{% url 'record-detail' pk=record.id %}">More information</a>
+                    <style>
+                        .text {
+                            color: #060007 !important;
+                            font-weight: 400;
+                        }
+                    </style>
+                </div>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock content %}

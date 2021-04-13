@@ -1,0 +1,33 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <style>
+        .shadow {
+            background-color: #FBFFFE !important;
+            color: #060007;
+            margin: 0.5rem 0 1rem;
+        }
+        td {
+            padding-right: 10px;
+        }
+    </style>
+    <div class="container">
+        <div class="shadow p-3 mb-3 bg-dark rounded">
+            <table style="width: 100%;">
+                <td><h1 style="color: #060007; font-size: 25px;"> Manufacturer List </h1></td>
+                <td align="right">
+                    <a class="btn btn-secondary"  href="/create_manufacturer" role="button">Create Manufacturer</a></td>
+            </table>
+        </div>
+        {% for manufacturer in manufacturers %}
+            <div class="shadow p-3 mb-3 bg-dark rounded">
+                <table style="width: 100%;">
+                    <td> <h3 class="text" style="font-weight:bold;font-size:25px; ">{{ manufacturer.name }} </h3> </td>
+                    <td align="right">
+                        <a class="btn btn-secondary" href="{% url 'manufacturer-update' ur=manufacturer.id %}">Update Manufacturer</a>
+                        <a class="btn btn-secondary" href="{% url 'manufacturer-delete' ur=manufacturer.id %}">Delete Manufacturer</a>
+                    </td>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

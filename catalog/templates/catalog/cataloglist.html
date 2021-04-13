@@ -1,0 +1,53 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <style>
+        .shadow {
+            background-color: #FBFFFE !important;
+            color: #060007;
+            margin: 0.5rem 0 1rem;
+        }
+        td {
+            padding-right: 10px;
+        }
+    </style>
+    <div class="container">
+        <div class="shadow p-3 mb-3 bg-dark rounded">
+            <table style="width: 100%;">
+                <td><h1 style="color: #060007; font-size: 25px;"> Catalog List </h1></td>
+                <td align="right">
+                    <a class="btn btn-secondary"  href="/create_catalog" role="button">Create Catalog</a></td>
+            </table>
+        </div>
+        
+        {% for catalog in catalogs %}
+        <div class="shadow p-3 mb-3 bg-dark rounded">
+            <table style="width: 100%;">
+                <tr>                    
+                    <td> <a class="text" href="{% url 'record-list' cr=catalog.id %}"> <h3 class="text" style="font-weight:bold;font-size:25px; "> {{ catalog.name }} </h3></a> </td>
+                    <td align="right">
+                        <a class="btn btn-secondary" href="{% url 'catalog-update' ur=catalog.id %}">Update Catalog</a>
+                        <a class="btn btn-secondary" href="{% url 'catalog-delete' ur=catalog.id %}">Delete Catalog</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><small>   
+                            <em> Updated: </em> {{ catalog.updated_at }} |
+                            <em> Created: </em> {{ catalog.created_at }} |
+                            By: {{ catalog.created_by.username }} 
+                    </small></td>
+                </tr>
+                <tr>
+                    <td colspan="0">
+                        <hr>
+                        {% if catalog.description %}
+                            {{ catalog.description }}
+                        {% else %}
+                            No description provided
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <style>
+        .shadow {
+            background-color: #FBFFFE !important;
+            color: #060007;
+            margin: 0.5rem 0 1rem;
+        }
+        .text {
+            font-size: 40px;
+            font-weight: bold;
+            color: #060007;
+        }
+        td {
+            padding: 3px;
+        }
+        .form {
+            color: #060007;
+        }
+    </style>
+    <div class="shadow p-3 mb-3 bg-dark rounded">
+        <h1 style="color: #060007; font-size: 25px;" >Update Provenance</h1>
+        <form class="form" method="POST" action="">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td style="vertical-align:top"><label for="created_by">Record:</label></td>
+                    <td> {{ form.record }} </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top"><label for="created_by">Date:</label></td>
+                    <td> {{ form.date }} </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top"><label for="created_by">Owner:</label></td>
+                    <td> {{ form.owner }} </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top"><label for="created_by">Nation:</label></td>
+                    <td> {{ form.nation }} </td>
+                </tr>
+            </table>
+            <input class="btn btn-secondary" type="submit" name="Submit">
+        </form>
+    </div>
+    <div>
+        <a class="btn btn-secondary" href="/search">Back to Record List</a>
+        <p></p>&nbsp;
+    </div>
+{% endblock content %}

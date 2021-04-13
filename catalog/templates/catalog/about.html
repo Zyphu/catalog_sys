@@ -1,0 +1,70 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <head>
+        <style>
+            .shadow {
+                background: #FBFFFE;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                padding: 15px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                border-radius: 10px;
+                color: #060007;
+            }
+
+            .text {
+                color: #060007 !important;
+                font-weight: 400;
+                font-size: 20px;
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+
+            .bullet-points {
+                color: #060007 !important;
+                font-weight: 400;
+                font-size: 20px;
+                padding-left: 70px;
+            }
+
+            .h4 {
+                color: #060007 !important;
+                font-weight: bold;
+                padding-left: 25px;
+                padding-bottom: 15px;
+                padding-top: 15px;
+                font-size: 23px;
+            }
+
+            .h2 {
+                font-weight: bold;
+                font-size: 35px;
+                text-decoration: underline;
+                color: #060007;
+                padding: 20px;
+            }
+        </style>
+    </head>
+
+    <div class="row pt-4">
+    </div>
+    <div class="shadow">
+        <h2 class="h2">About us:</h2>
+        <p class="text">Collectio is a catalog collection system that will allow it's users to keep track of the
+            objects in their collections. This webpage provides a system that is suitable for individual collectors and
+            small museums. It is easy to use and very flexible in nature. The live version of the system is to be run
+            locally since production is still in Alpha version. We plan on adding more features to it with time.</p>
+        <h4 class="h4"> Team Members:</h4>
+        <ul class="bullet-points">
+            <li>Daniel Romo Cumming</li>
+            <li>Julian Mattatall</li>
+            <li>Justin Hughes</li>
+            <li>Rija Ali</li>
+            <li>Sam Chambre</li>
+        </ul>
+    </div>
+{% endblock content %}

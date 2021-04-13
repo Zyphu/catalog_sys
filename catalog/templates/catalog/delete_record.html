@@ -1,0 +1,22 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <style>
+    .shadow {
+        padding: 20px;
+    }
+    </style>
+    <div class="row p-3 mb-3">
+        <div class="shadow bg-light rounded">
+            <p style="color: #060007">Are you sure you want to delete "{{ record }}"</p>
+            <form action="{% url 'record-delete' record.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" name="Confirm" value="Delete" class="btn-danger">
+            </form>
+        </div>
+    </div>
+    <div>
+        <p></p>
+        <a class="btn btn-secondary" href="{% url 'record-detail' record.id %}">Back to Record</a>&nbsp;&nbsp;<a class="btn btn-secondary" href="/search">Back to Record List</a>
+        <p></p>&nbsp;
+    </div>
+{% endblock content %}

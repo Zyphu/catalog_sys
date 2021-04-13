@@ -1,0 +1,135 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+    {% for record in records %}
+        <div class="row align-items-center">
+            <div class="shadow p-3 mb-3 bg-dark rounded">
+                <style>
+                    .shadow {
+                        background-color: #FBFFFE !important;
+                        color: #060007;
+                        margin: 0.5rem 0 1rem;
+                    }
+
+                    td {
+                        padding-right: 10px;
+                    }   
+                </style>
+                <h3 class="text" style="font-weight:bold;font-size:25px;"> {{ record.name }}</h3>
+                </h3>
+                <p class="text"><small> <em> Updated: </em> {{ record.updated_at }} | <em>
+                    Created: </em> {{ record.created_at }} </small></p>
+                <hr>
+                <table style="width:100%">
+                    <colgroup>
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 35%;">
+                        <col span="1" style="width: 50%;">
+                    </colgroup>
+                    <tr>
+                        <td style="text-align: left;"><strong>Catalog: </strong></td>
+                        <td style="text-align: left;"> {{ record.my_catalog.name }}</td>
+                        
+                        <td align="right" rowspan="0"> 
+                            {% if record.record_picture %} 
+                            <img src="{{ record.record_picture.url }}" width="180">
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Acquisition year: </strong></td>
+                        <td style="text-align: left;">  {{ record.acquisition_date }} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Creation year: </strong></td>
+                        <td style="text-align: left;">  {{ record.creation_date }} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Manufacturer: </strong></td>
+                        {% if record.manufacturer.name %}
+                        <td style="text-align: left;">  {{ record.manufacturer.name }} </td>
+                        {% else %} 
+                            <td> Unknown </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Condition Rating: </strong></td>
+                        <td style="text-align: left;">  {{ record.condition_rating }} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><strong>Condition Summary: </strong></td>
+                        {% if record.manufacturer.name %}
+                        <td style="text-align: left;">  {{ record.condition_description }} </td>
+                        {% else %} 
+                            <td> No description provided </td>
+                        {% endif %}
+                    </tr>
+                    {% for cf in custom_fields %}
+                        {% if cf.record.id == record.id %}
+                            <tr>
+                                {% if cf.type   == 'char' and cf.cf_char %} <td> <strong> {{ cf.field_label }}: </strong> </td> <td> {{ cf.cf_char }} </td>
+                                {% elif cf.type == 'text' and cf.cf_text %} <td> <strong> {{ cf.field_label }}: </strong> </td> <td> {{ cf.cf_text }} </td>
+                                {% elif cf.type == 'bool'                %} <td> <strong> {{ cf.field_label }}: </strong> </td> <td> {{ cf.cf_bool }} </td>
+                                {% elif cf.type == 'int'  and cf.cf_int  %} <td> <strong> {{ cf.field_label }}: </strong> </td> <td> {{ cf.cf_int }} </td>
+                                {% elif cf.type == 'dec'  and cf.cf_dec  %} <td> <strong> {{ cf.field_label }}: </strong> </td> <td> {{ cf.cf_dec }} </td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <hr>
+                {% if record.description %}
+                    <p> {{ record.description }}</p>
+                {% else %}
+                    <p> No description provided </p>
+                {% endif %}
+                <hr>
+                <p><strong> Provenance History </strong></p>
+                <table style="width:100%">
+                    <colgroup>
+                        <col span="1" style="width: 20%;">
+                        <col span="1" style="width: 20%;">
+                        <col span="1" style="width: 30%;">
+                        <col span="1" style="width: 30%;">
+                    </colgroup>
+                    <tr>
+                        <th> Date</th>
+                        <th> Owner</th>
+                        <th> Nation</th>
+                    </tr>
+                    {% for prov in provenances %}
+                        {% if prov.record.id == record.id %}
+                            <tr>
+                                <!-- <td> {{ prov.date_start|date:'Y-m-d' }} - {{ prov.date_end|date:'Y-m-d'}} </td> -->
+                                <td> {{ prov.date }} </td>
+                                <td> {{ prov.owner }} </td>
+                                <td> {{ prov.nation }} </td>
+                                <td align="right"><a class="btn btn-secondary"
+                                       href="{% url 'provenance-delete' ur=prov.id %}">Delete</a>
+                                       <a class="btn btn-secondary" href="{% url 'provenance-update' ur=prov.id %}">Update</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+                <hr>
+                <div>
+                    <a class="btn btn-secondary" href="{% url 'record-update' ur=record.id %}">Update Record</a>&nbsp;&nbsp;<a
+                        class="btn btn-secondary" href="{% url 'record-delete' ur=record.id %}">Delete Record</a>&nbsp;&nbsp;<a
+                        class="btn btn-secondary" href="{% url 'provenance-create' %}">Create New Provenance</a>
+                </div>
+                <style>
+                    .text {
+                        color: #060007 !important;
+                        font-weight: 400;
+                    }
+                </style>
+            </div>
+        </div>
+    {% endfor %}
+    <div>
+        <a class="btn btn-secondary" href="/search">Back to Record List</a>
+        <p></p>&nbsp;
+    </div>
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends "catalog/base.html" %}
+{% block navbar %}
+    <head>
+        <style>
+            .nav-link {
+                font-size: 18px;
+                color: #ffffff !important;
+                padding-right: 2px;
+            }
+
+            .ref {
+                color: #FBFFFE;
+                font-size: 20px;
+                font-family: "Comic Sans MS";
+            }
+        </style>
+    </head>
+
+    <nav class="navbar navbar-expand-lg px-3" style="background-color:#2c2c2c;border-radius: 10px;">
+        <a href="/about" class="navbar-brand">
+            {% load static %}
+            <img src="{% static '/images/logo.png' %}" width="60" alt="" class="d-inline-block align-middle mr-2">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav me-auto px-3">
+                <li class="nav-item">
+                    <a class="nav-link active px-3" style="font-size: 20px" aria-current="page" href="/home">Home</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active px-3" style="font-size: 20px" href="/catalog">Catalogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active px-3" style="font-size: 20px" href="/search">Records</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active px-3" style="font-size: 20px" href="/manufacturer">Manufacturers</a>
+                    </li> -->
+                {% endif %}
+            </ul>
+            {% if not request.user.is_authenticated %}
+                <ul class="nav navbar-nav navbar-right px-0">
+                    <!-- <a class="btn btn-secondary btn-sm px-3" style="font-size:20px;border-radius: 5px;" href="/register" role="button"> -->
+                    <a class="nav-link active px-3" style="font-size: 20px" href="/register"> Register</a>
+                </ul>
+                <ul class="nav navbar-nav navbar-right px-3">
+                    <!-- <a class="btn btn-secondary btn-sm px-3" style="font-size:20px;border-radius: 5px;" href="/login" role="button"> -->
+                    <a class="nav-link active px-3" style="font-size: 20px" href="/login"> Login</a>
+                </ul>
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+                <ul class="nav navbar-nav navbar-right px-0">
+                    <span class="ref px-2 py-2" id="hello_msg">Hello, {{ request.user }}  </span>
+                </ul>
+                <ul class="nav navbar-nav navbar-right px-3">
+                    <!-- <a class="btn btn-secondary btn-sm px-3" style="font-size:20px;" href="/logout" role="button"> -->
+                    <a class="nav-link active px-3" style="font-size: 20px" href="/logout"> Logout</a>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock navbar %}

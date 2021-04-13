@@ -1,0 +1,38 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <style>
+        .shadow {
+            background-color: #FBFFFE !important;
+            color: #060007;
+            margin: 0.5rem 0 1rem;
+        }
+        .text {
+            font-size: 40px;
+            font-weight: bold;
+            color: #060007;
+        }
+        td {
+            padding: 3px;
+        }
+        .form {
+            color: #060007;
+        }
+    </style>
+    <div class="shadow p-3 mb-3 bg-dark rounded">
+        <h1 style="color: #060007; font-size: 25px;" >Update Manufacturer</h1>
+        <form class="form" method="POST" action="">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td style="vertical-align:top">  Manufacturer: </td>
+                    <td> {{ form.name }} </td>
+                </tr>
+            </table>            
+            <input class="btn btn-secondary" type="submit" name="Submit">
+        </form>
+    </div>
+    <div>
+        <a class="btn btn-secondary" href="/manufacturer">Back to Manufacturer List</a>
+        <p></p>&nbsp;
+    </div>
+{% endblock content %}

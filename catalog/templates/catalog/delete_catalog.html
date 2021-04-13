@@ -1,0 +1,22 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <style>
+    .shadow {
+        padding: 20px;
+    }
+    </style>
+    <div class="row p-3 mb-3">
+        <div class="shadow bg-light rounded">
+            <p style="color: #060007">Are you sure you want to delete "{{ catalog }}"</p>
+            <form action="{% url 'catalog-delete' catalog.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" name="Confirm" value="Delete" class="btn-danger">
+            </form>
+        </div>
+    </div>
+    <div>
+        <p></p>
+        <a class="btn btn-secondary" href="/catalog">Back to Catalogue List</a>
+        <p></p>&nbsp;
+    </div>
+{% endblock content %}

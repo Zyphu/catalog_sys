@@ -1,0 +1,79 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+    <head>
+        <head>
+            <style>
+                .shadow {
+                    background: #FBFFFE;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    padding: 15px;
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    border-radius: 10px;
+                    color: #060007;
+                }
+
+                .text {
+                    color: #060007 !important;
+                    font-weight: 400;
+                    font-size: 20px;
+                    padding-left: 50px;
+                    padding-right: 50px;
+                }
+
+                .bullet-points {
+                    color: #060007 !important;
+                    font-weight: 400;
+                    font-size: 20px;
+                    padding-left: 70px;
+                }
+
+                .h4 {
+                    color: #060007 !important;
+                    font-weight: bold;
+                    padding: 20px;
+                    font-size: 25px;
+                }
+
+                .h2 {
+                    font-weight: bold;
+                    font-size: 35px;
+                    text-decoration: underline;
+                    color: #060007;
+                    padding: 20px;
+                }
+            </style>
+        </head>
+    </head>
+    <div class="row pt-4">
+    </div>
+    <div class="shadow">
+        <h2 class="h2">Home page!</h2>
+        <p class="text">
+            To use the collectio website, you will need to login with your username and password. If you would like to
+            become an administrator, you will need to contact the creators of the app.
+        </p>
+        <p class="text">
+            To register as a user, you can sign up on the register page by clicking the button on the top-left. After
+            logging in with your ID, you will be ready to work with your catalog system. Collectio allows it's users
+            to create catalogs with records of any type.
+            The records can have various fields like:
+        <ul class="bullet-points">
+            <li>Name and Description</li>
+            <li>Acquisition and Creation Year</li>
+            <li>Manufacturer</li>
+            <li>Condition Rating and Summary</li>
+            <li>Provenance History</li>
+            <li>Image</li>
+            <li>And other custom fields like Color</li>
+        </ul>
+        </p>
+        <p class="text">The app also allows you to create, view, search, edit and delete catalogs, records and even
+            the individual fields. We hope to keep improving this website. The code for the wesbite can be found here:
+        <a href="https://github.com/rijaali144/catalog_sys">Github</a>.</p>
+    </div>
+{% endblock content %}
